@@ -1,22 +1,22 @@
 .switch-container {
      display: flex;
      align-items: center;
-   }
-   
-   .switch {
+}
+
+.switch {
      position: relative;
      display: inline-block;
      width: 70px;
      height: 34px;
-   }
-   
-   .switch input[type="checkbox"] {
+}
+
+.switch input[type="checkbox"] {
      opacity: 0;
      width: 0;
      height: 0;
-   }
-   
-   .slider {
+}
+
+.slider {
      position: absolute;
      cursor: pointer;
      top: 0;
@@ -26,9 +26,9 @@
      background-color: #ccc;
      transition: 0.4s;
      border-radius: 34px;
-   }
-   
-   .slider:before {
+}
+
+.slider:before {
      position: absolute;
      content: "";
      height: 25px;
@@ -38,18 +38,31 @@
      background-color: white;
      transition: 0.4s;
      border-radius: 50%;
-   }
-   
-   input[type="checkbox"]:checked + .slider {
-     background-color: #E1AEFF;
-   }
-   
-   input[type="checkbox"]:checked + .slider:before {
+}
+
+input[type="checkbox"]:checked + .slider {
+     background-color: #e1aeff;
+}
+
+input[type="checkbox"]:checked + .slider:before {
      transform: translateX(27px);
-     background-color: #66347F;
-   }
-   
-   span {
+     background-color: #66347f;
+}
+
+span {
      margin-left: 8px;
-   }
-   
+}
+
+@media screen and (max-width: 600px) {
+     .switch {
+          width: 50px;
+          height: 25px;
+     }
+     input[type="checkbox"]:checked + .slider:before {
+          transform: translateX(18px);
+     }
+     .slider:before {
+          height: 15px;
+          width: 15px;
+     }
+}

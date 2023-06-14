@@ -1,5 +1,5 @@
 .title-container {
-     width:100%;
+     width: 100%;
      display: flex;
      justify-content: space-between;
      align-items: center;
@@ -10,12 +10,11 @@
      width: 70%;
 }
 
-.title-form>label,
-.title-form>input {
+.title-form > label,
+.title-form > input {
      display: block;
-     width:100%;
+     width: 100%;
      font-size: 1rem;
-
 }
 
 .title-buttons button {
@@ -25,5 +24,15 @@
      transition: background-color 0.3s ease-in-out;
 }
 .title-buttons button:hover {
-     background-color: #E1AEFF;
+     background-color: #e1aeff;
+}
+
+@media screen and (max-width: 600px) {
+     .title-form {
+          width: 60%;
+     }
+     .title-form > label,
+     .title-form > input {
+          font-size: 0.8rem;
+     }
 }

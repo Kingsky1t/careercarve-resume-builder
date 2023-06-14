@@ -69,93 +69,79 @@ export const App = () => {
      };
 
      return (
-          
-               <form className='container'>
-                    <h2 style={{ textAlign: "center" }}>
-                         Select your sections
-                    </h2>
-                    {formItems.map((item, index) => (
-                         <div className='form-container'>
-                              <div
-                                   key={index}
-                                   aria-disabled={item.active}
-                                   draggable
-                                   className={
-                                        item.active
-                                             ? "form-items"
-                                             : "form-items disabled"
-                                   }
-                                   onDragStart={(e) => {
-                                        dragItem.current = index;
-                                   }}
-                                   onDragEnter={(e) => {
-                                        dragOverItem.current = index;
-                                   }}
-                                   onDragEnd={handleSort}
-                                   // onDragOver={(e) => e.preventDefault()}
-                              >
-                                   <div className='item-left-section'>
-                                        <div>
-                                             <div className='move-icon'>
-                                                  <FiMenu />
-                                             </div>
-                                             <div
-                                                  onClick={() => {
-                                                       handleShow(index);
-                                                  }}>
-                                                  <GoInfo />
-                                             </div>
+          <form className='container'>
+               <h2 style={{ textAlign: "center" }}>Select your sections</h2>
+               {formItems.map((item, index) => (
+                    <div className='form-container'>
+                         <div
+                              key={index}
+                              aria-disabled={item.active}
+                              draggable
+                              className={
+                                   item.active
+                                        ? "form-items"
+                                        : "form-items disabled"
+                              }
+                            
+                              onDragStart={(e) => {
+                                   dragItem.current = index;
+                              }}
+                              onDragEnter={(e) => {
+                                   dragOverItem.current = index;
+                              }}
+                              onDragEnd={handleSort}
+                              // onDragOver={(e) => e.preventDefault()}
+                         >
+                              <div className='item-left-section'>
+                                   <div>
+                                        <div className='move-icon'>
+                                             <FiMenu />
                                         </div>
-
-                                        <Title
-                                             item={item}
-                                             formItems={formItems}
-                                             setFormItems={setFormItems}
-                                             index={index}
-                                        />
+                                        <div
+                                             onClick={() => {
+                                                  handleShow(index);
+                                             }}>
+                                             <GoInfo />
+                                        </div>
                                    </div>
 
-                                   {/* disabled switch */}
-                                   <div className='item-right-section'>
-                                        <Switch
-                                             handleActive={handleActive}
-                                             index={index}
-                                        />
-                                   </div>
-                              </div>
-                              {item.show && (
-                                   <Details
+                                   <Title
                                         item={item}
                                         formItems={formItems}
                                         setFormItems={setFormItems}
                                         index={index}
-                                        handleShow={handleShow}
                                    />
-                              )}
-                         </div>
-                    ))}
+                              </div>
 
-                    <button
-                         onClick={(e)=>{
-                              e.preventDefault()
-                              console.log(formItems)}}
-                         style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              width: "30%",
-                              margin: "1rem auto",
-                              padding: " 1rem ",
-                              background: "#66347F",
-                              border: "none",
-                              borderRadius: "5px",
-                              color: "white",
-                              fontSize: "1rem",
-                              cursor: "pointer",
-                         }}>
-                         Save and Next
-                    </button>
-               </form>
-          
+                              {/* disabled switch */}
+                              <div className='item-right-section'>
+                                   <Switch
+                                        handleActive={handleActive}
+                                        index={index}
+                                   />
+                              </div>
+                         </div>
+                         {item.show && (
+                              <Details
+                                   item={item}
+                                   formItems={formItems}
+                                   setFormItems={setFormItems}
+                                   index={index}
+                                   handleShow={handleShow}
+                              />
+                         )}
+                    </div>
+               ))}
+
+               <button
+                    onClick={(e) => {
+                         e.preventDefault();
+                         console.log(formItems);
+                    }}
+                    className="form-submit"
+                    >
+                    Save and Next
+               </button>
+          </form>
      );
 };
