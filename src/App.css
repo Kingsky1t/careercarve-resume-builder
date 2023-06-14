@@ -1,7 +1,21 @@
+body {
+     margin:0;
+     padding:0;
+
+}
+
+.container {
+     background-color: #FFECEC;
+}
+
 .form-items {
      padding: 1rem;
      margin: 0.2rem;
-     background-color: pink;
+     background-color: #FFBDF7;
+     display: flex;
+     border:none;
+
+     border-block: solid 2px #FF78C4;
 }
 
 .move-icon:hover {

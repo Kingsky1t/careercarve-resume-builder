@@ -1,56 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BsPencil } from "react-icons/bs";
 
-export const Title = ({ formItems, setFormItems, index }) => {
-     const [editActive, setEditActive] = React.useState(true);
-     const [saveActive, setSaveActive] = React.useState(true);
-     const [form, setForm] = React.useState(formItems[index].title);
+export const Title = ({ item, formItems, setFormItems, index }) => {
 
-     const handleSave = (e) => {
-          e.preventDefault();
-          setFormItems((prev) =>
-               prev.map((item, i) => {
-                    if (index === i) {
-                         return {
-                              ...prev[i],
-                              title: form,
-                         };
-                    } else {
-                         return item;
-                    }
-               })
-          );
-          setEditActive(true);
-          setSaveActive(true);
-     };
+     const title = formItems[index].title
+     const [editing, setEditing] = useState(false);
+     const [form, setForm] = useState(title);
+
+     useEffect(()=> {
+          setForm(title)
+     },[formItems])
 
      return (
-          <div
-               onChange={() => {
-                    setEditActive(true);
-               }}>
-               <input
-                    name='title'
-                    type='text'
-                    value={form}
-                    onChange={(e) => {
-                         setForm(e.target.value);
-                    }}
-                    disabled={editActive && saveActive}
-               />
-               {editActive && saveActive ? (
+          <div>
+               {editing ? (
+                    <input
+                         type='text'
+                         value={form}
+                         onChange={(e) => {
+                              setForm(e.target.value);
+                         }}
+                    />
+               ) : (
+                    <label>{title}</label>
+               )}
+
+               {editing ? (
                     <button
                          onClick={(e) => {
                               e.preventDefault();
-                              setEditActive(false);
-                              setSaveActive(false);
+                              setFormItems((prev) =>
+                                   prev.map((item, i) => {
+                                        if (index === i) {
+                                             return {
+                                                  ...prev[i],
+                                                  title: form,
+                                             };
+                                        } else {
+                                             return item;
+                                        }
+                                   })
+                              );
+                              setEditing(false)
                          }}>
-                         edit
+                         Save
                     </button>
                ) : (
                     <button
-                         onClick={(e) => handleSave(e)}
-                         >
-                         save
+                         onClick={(e) => {
+                              e.preventDefault();
+                              setEditing(!editing);
+                         }}>
+                         <BsPencil />
                     </button>
                )}
           </div>
