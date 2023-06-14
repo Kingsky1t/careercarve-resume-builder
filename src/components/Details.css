@@ -1,0 +1,32 @@
+.details {
+     display: flex;
+     width: 90%;
+     margin:auto;
+     /* margin-left: 8%; */
+     justify-content: space-between;
+     padding-inline: 1rem;
+}
+
+.details > input {
+     width: 80%;
+}
+
+input {
+     border: none;
+     outline: none;
+     border-block: 2px solid #ff78c4;
+     background-color: #ffecec;
+     padding: 0.5rem;
+     font-size: 1rem;
+     font-family: 'Roboto', sans-serif;
+}
+
+.details button {
+     background-color: transparent;
+     border: none;
+     padding: 0.5rem;
+     transition: background-color 0.3s ease-in-out;
+}
+.details button:hover {
+     background-color: #E1AEFF;
+}

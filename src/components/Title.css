@@ -1,0 +1,29 @@
+.title-container {
+     width:100%;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0.2rem;
+}
+
+.title-form {
+     width: 70%;
+}
+
+.title-form>label,
+.title-form>input {
+     display: block;
+     width:100%;
+     font-size: 1rem;
+
+}
+
+.title-buttons button {
+     background-color: transparent;
+     border: none;
+     padding: 0.5rem;
+     transition: background-color 0.3s ease-in-out;
+}
+.title-buttons button:hover {
+     background-color: #E1AEFF;
+}

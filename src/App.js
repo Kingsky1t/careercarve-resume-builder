@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { data } from "./data";
 import "./App.css";
-import { Title } from "./Title";
+import { Title } from "./components/Title";
 import { FiMenu } from "react-icons/fi";
 import { GoInfo } from "react-icons/go";
-import { Switch } from "./Switch";
+import { Switch } from "./components/Switch";
+import { Details } from "./components/Details";
 
 export const App = () => {
-     const [detectChange, setDetectChange] = useState(false);
-     const [titleChange, setTitleChange] = useState("");
      const [formItems, setFormItems] = useState([]);
      useEffect(() => {
           setFormItems(
@@ -17,6 +16,7 @@ export const App = () => {
                     active: true,
                     show: false,
                     save: false,
+                    description: "",
                }))
           );
      }, []);
@@ -36,8 +36,7 @@ export const App = () => {
           );
      };
 
-     const handleShow = (e) => {
-          let i = Number(e.target.getAttribute("data-index"));
+     const handleShow = (i) => {
           setFormItems((prev) =>
                prev.map((item, index) => {
                     if (index === i) {
@@ -67,62 +66,96 @@ export const App = () => {
           dragOverItem.current = null;
           // update the state
           setFormItems(_formItems);
-
      };
-     console.log(formItems);
 
      return (
-          <form style={{ padding: "5rem" }} className='container'>
-               {formItems.map((item, index) => (
-                    <div
-                         key={index}
-                         aria-disabled={item.active}
-                         draggable
-                         className={
-                              item.active ? "form-items" : "form-items disabled"
-                         }
-                         onDragStart={(e) => {
-                              dragItem.current = index;
-                         }}
-                         onDragEnter={(e) => {
-                              dragOverItem.current = index;
-                         }}
-                         onDragEnd={handleSort}
-                         onDragOver={(e) => e.preventDefault()}>
-
-                         <div className='item-left-section'>
-                              <div>
-                                   <FiMenu />
-                              </div>
-
+          
+               <form className='container'>
+                    <h2 style={{ textAlign: "center" }}>
+                         Select your sections
+                    </h2>
+                    {formItems.map((item, index) => (
+                         <div className='form-container'>
                               <div
-                                   data-index={index}
-                                   onClick={(e) => {
-                                        handleShow(e);
+                                   key={index}
+                                   aria-disabled={item.active}
+                                   draggable
+                                   className={
+                                        item.active
+                                             ? "form-items"
+                                             : "form-items disabled"
+                                   }
+                                   onDragStart={(e) => {
+                                        dragItem.current = index;
                                    }}
-                                   style={{ zIndex: "2", padding: "0.2rem" }}>
-                                   <GoInfo />
+                                   onDragEnter={(e) => {
+                                        dragOverItem.current = index;
+                                   }}
+                                   onDragEnd={handleSort}
+                                   // onDragOver={(e) => e.preventDefault()}
+                              >
+                                   <div className='item-left-section'>
+                                        <div>
+                                             <div className='move-icon'>
+                                                  <FiMenu />
+                                             </div>
+                                             <div
+                                                  onClick={() => {
+                                                       handleShow(index);
+                                                  }}>
+                                                  <GoInfo />
+                                             </div>
+                                        </div>
+
+                                        <Title
+                                             item={item}
+                                             formItems={formItems}
+                                             setFormItems={setFormItems}
+                                             index={index}
+                                        />
+                                   </div>
+
+                                   {/* disabled switch */}
+                                   <div className='item-right-section'>
+                                        <Switch
+                                             handleActive={handleActive}
+                                             index={index}
+                                        />
+                                   </div>
                               </div>
-
-                              <Title
-                                   item={item}
-                                   formItems={formItems}
-                                   setFormItems={setFormItems}
-                                   index={index}
-                              />
+                              {item.show && (
+                                   <Details
+                                        item={item}
+                                        formItems={formItems}
+                                        setFormItems={setFormItems}
+                                        index={index}
+                                        handleShow={handleShow}
+                                   />
+                              )}
                          </div>
+                    ))}
 
-                         {/* disabled switch */}
-                         <div className='item-right-section'>
-                              <Switch
-                                   handleActive={handleActive}
-                                   index={index}
-                              />
-                         </div>
-
-                         {item.show && <input type='text' />}
-                    </div>
-               ))}
-          </form>
+                    <button
+                         onClick={(e)=>{
+                              e.preventDefault()
+                              console.log(formItems)}}
+                         style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "30%",
+                              margin: "1rem auto",
+                              padding: " 1rem ",
+                              background: "#66347F",
+                              border: "none",
+                              borderRadius: "5px",
+                              color: "white",
+                              fontSize: "1rem",
+                              cursor: "pointer",
+                         }}>
+                         Save and Next
+                    </button>
+               </form>
+          
      );
 };
